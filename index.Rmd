@@ -1,11 +1,13 @@
 ---
 title: "Discharge Data Example"
-author: "Matthew Ross"
-date: "1/24/2022"
+author: "Matthew Ross & Derek Fedak"
+date: "`r format(Sys.time(), '%A %d %B, %Y')`"
 output:
   html_document:
     toc: true
     toc_float: true
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
@@ -28,17 +30,17 @@ The Poudre River at Lincoln Bridge is:
   
   - Near an open space area and the Poudre River Trail
   
-  - **Downstream of many agricultral diversions**
+  - **Downstream of many agricultural diversions**
 
 
-## SiteDescription
+## Site Description
 
 ![](https://waterdata.usgs.gov/nwisweb/local/state/co/text/pics/06752260big.jpg)
 
 
 ## Data Acquisition and Plotting tests
 
-## Data Download
+### Data Download
 
 
 ```{r downloader}
@@ -54,7 +56,7 @@ q <- readNWISdv(siteNumbers = '06752260',
 
 
 
-## Static Data Plotter
+### Static Data Plotter
 
 
 ```{r, warning = FALSE, fig.width = 8, fig.height = 5}
@@ -67,7 +69,7 @@ ggplot(q, aes(x = Date, y = q)) +
 ```
 
 
-## Interactive Data Plotter
+### Interactive Data Plotter
 
 
 ```{r}
@@ -76,40 +78,47 @@ q_xts <- xts(q$q, order.by = q$Date)
 
 
 dygraph(q_xts) %>%
-  dyAxis("y", label = "Discharge (cfs)") 
+  dyAxis("y", label = "Discharge (cfs)")
 ```
 
 
 
-# Assignment. 
+# Assignment 
 
 
-This assignment will be primarily about demonstrating some expertice in using
+This assignment will be primarily about demonstrating some expertise in using
 RMarkdown, since we will be using Rmds as the primary form of homework and 
 assignments. With that in mind, your assignment for this homework is to:
 
 
 1) Fork the example repository into your personal GitHub
+**-Done**
 
 2) Create an RStudio project from your Personal clone of the Repo. 
+**-Done**
 
 3) Create a table of contents that is floating, but displays three levels of
 headers instead of two (by editing the content at the beginning of the document)
+**-Done**
 
 4) Make a version of the `dygraph` with points and lines by using rstudio's
 dygraph [guide](https://rstudio.github.io/dygraphs/)
+**-Done**
 
 5) Writing a paragraph on the Poudre river with at least three hyperlinks,
 **two bolded sections**, and one *italicized phrase*. The content of this paragraph
 is not vital, but try to at least make it true and interesting, and, of course,
 don't plagiarize. 
+**-Done**
 
 6) Knit that document, and then git commit and push to your personal GitHub.
 
 7) Use the GitHub -> Settings -> Pages tab to create a website of your report.
+**-Done**
 
 8) Bonus, make the timestamp in the header dynamic. As in it only adds
 todays date, not just a static date you enter. 
+**-Done**
 
 9) Bonus, create an "index_talk.Rmd" version of your document using the
 `revealjs` package. Add link to your original report-style document. 
@@ -117,10 +126,25 @@ todays date, not just a static date you enter.
 
 
 
-## DyGraph example. 
+## DyGraph example 
+
+```{r}
+
+q_xts <- xts(q$q, order.by = q$Date)
+
+
+dygraph(q_xts) %>%
+  dyAxis("y", label = "Discharge (cfs)") %>%
+  dyOptions(drawPoints = TRUE, pointSize=2)
+```
 
 
 ## Poudre Paragraph
 
 
+The **Poudre River** is a recreational gem in the city of **Fort Collins, CO**, supporting a [21-mile paved trail](https://poudretrail.org/) for bikers, runners, and walkers. Every Thursday, the [North FoCo Pub Runners](https://www.facebook.com/northfocorunners/) run a 5k out-and-back, ending in Old Town. Their motto is *they drink more than most runners and run more than most drinkers*. In addition to a weekly 5k, many members are passionate trail runners and XC skiers, utilizing the upstream Poudre Canyon's natural areas. While the author prefers to stick to 30ks and 6-10 mile XC ski trips, the ultimate race in the Poudre rivershed is the [Neversummer 100k](https://gnarrunners.com/never-summer-100k/), which maintains a 24 hour cutoff time. While not attempting the full race himself, Derek has served as a crew member and pacer for the final 20 miles for several friends.
 
+### Separate Hyperlinks
+ - [Poudre River Trail](https://poudretrail.org/)
+ - [North FoCo Pub Runners Facebook Page](https://www.facebook.com/northfocorunners/)
+ - [Neversummer 100k](https://gnarrunners.com/never-summer-100k/)
